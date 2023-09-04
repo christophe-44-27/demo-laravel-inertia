@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import AtomImage from "@/components/AtomImage.vue";
 
 defineProps({
     mustVerifyEmail: {
@@ -19,7 +20,11 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    image: ''
 });
+function onFileChange(e) {
+    form.image = e.target.files[0];
+}
 </script>
 
 <template>
@@ -32,7 +37,27 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form @submit.prevent="form.post(route('profile.update'))" class="mt-6 space-y-6" method="PUT">
+            <div>
+                <InputLabel for="avatar" value="Avatar" />
+                <div class="mt-2 flex items-center gap-x-3">
+                    <AtomImage v-if="user.thumbnail" :img-class="'h-8 w-8 rounded-full'"
+                               :img-url="user.thumbnail"
+                               alt=""/>
+                    <AtomImage v-else :img-class="'h-8 w-8 rounded-full text-white-regular'"
+                               :img-url="'/img/user_default_avatar.svg'"
+                               alt=""/>
+                    <input
+                        type="file"
+                        class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        ref="image"
+                        v-on:change="onFileChange"
+                    />
+                </div>
+
+                <InputError class="mt-2" :message="form.errors.image" />
+            </div>
+
             <div>
                 <InputLabel for="name" value="Name" />
 
