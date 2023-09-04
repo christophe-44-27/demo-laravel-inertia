@@ -57,7 +57,12 @@
             </div>
 
             <div class="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Annuler</button>
+                <a
+                    href="{{ route('dashboard') }}"
+                    class="text-sm font-semibold leading-6 text-gray-900"
+                >
+                    Annuler
+                </a>
                 <button
                     type="submit"
                     class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm

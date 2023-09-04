@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProfileRequest;
-use App\Models\Profile;
-use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
 
 class AccountController extends Controller
 {
